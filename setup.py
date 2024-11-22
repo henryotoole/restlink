@@ -19,7 +19,7 @@ setup(
 	install_requires=[
 		"apispec",
 		"Flask",
-		"SQLAlchemy"
+		"SQLAlchemy",
 		"marshmallow"
 	],
 	classifiers=[
