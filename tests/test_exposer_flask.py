@@ -10,6 +10,7 @@ from tests.fixtures.db import db_sqlite_test, test_db_module, test_db
 from tests.fixtures.flask import test_client
 from tests.fixtures.util import Database
 from tests.fixtures.test_module.model_canal import Canal
+from tests.fixtures.test_module.schema_canal import SchemaCanal
 
 # Other libs
 from flask.testing import FlaskClient
@@ -166,3 +167,11 @@ def test_accessor_controls(test_db: Database, test_client: FlaskClient):
 		query_string=auth_query_read,
 		content_type="application/json"
 	).status_code == 403
+
+def test_custom_kwarg(test_db: Database, test_client: FlaskClient):
+	"""Test that custom kwarg's can be added.
+	"""
+	assert test_client.get(
+		"/api/v1/canal",
+		query_string={'custom_addition': urllib.parse.quote(json.dumps({'etc': 'etc'}))}
+	).get_json() == 'werk'

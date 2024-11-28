@@ -301,7 +301,7 @@ class SchemaREST(Schema):
 		"""
 		return False
 	
-	def get(self, id: int) -> dict:
+	def get(self, id: int, **kwargs) -> dict:
 		"""Validate and perform the basic GET operation on a schema instance of the provided ID.
 
 		Args:
@@ -315,9 +315,9 @@ class SchemaREST(Schema):
 			f"Accessor does not have read access to {self.name}"
 		)
 
-		return self._get(id)
+		return self._get(id, **kwargs)
 		
-	def post(self, data: dict) -> dict:
+	def post(self, data: dict, **kwargs) -> dict:
 		"""Validate and perform the basic POST operation on a schema instance of the provided ID. By default
 		this will create a new instance. See _create().
 
@@ -333,9 +333,9 @@ class SchemaREST(Schema):
 				f"Accessor does not have write access to {self.name}"
 			)
 
-		return self._create(data)
+		return self._create(data, **kwargs)
 		
-	def put(self, id: int, data: dict) -> dict:
+	def put(self, id: int, data: dict, **kwargs) -> dict:
 		"""Validate and perform the basic PUT operation on a schema instance of the provided ID. By default, this
 		will update an existing record with the provided data. See _update().
 
@@ -352,9 +352,9 @@ class SchemaREST(Schema):
 				f"Accessor does not have write access to {self.name}"
 			)
 
-		return self._update(id, data)
+		return self._update(id, data, **kwargs)
 	
-	def delete(self, id: int):
+	def delete(self, id: int, **kwargs):
 		"""Validate and delete a record by its ID.
 
 		Args:
@@ -366,9 +366,9 @@ class SchemaREST(Schema):
 				f"Accessor does not have write access to {self.name}"
 			)
 
-		return self._delete(id)
+		return self._delete(id, **kwargs)
 	
-	def list(self, filter=None) -> list:
+	def list(self, **kwargs) -> list:
 		"""Return a list of ID's for all available ID's in this Schema's table.
 
 		**On Filtering**
@@ -391,9 +391,9 @@ class SchemaREST(Schema):
 				f"Accessor does not have read access to {self.name}"
 			)
 		
-		return self._list(filter=filter)
+		return self._list(**kwargs)
 	
-	def _get(self, id: int) -> dict:
+	def _get(self, id: int, **kwargs) -> dict:
 		"""Implements the actual action of performing get().
 
 		Args:
@@ -404,7 +404,7 @@ class SchemaREST(Schema):
 		"""
 		pass
 	
-	def _create(self, data: dict) -> dict:
+	def _create(self, data: dict, **kwargs) -> dict:
 		"""Implements the actual action of performing create().
 
 		Args:
@@ -415,7 +415,7 @@ class SchemaREST(Schema):
 		"""
 		pass
 	
-	def _update(self, id: int, data: dict) -> dict:
+	def _update(self, id: int, data: dict, **kwargs) -> dict:
 		"""Implements the actual action of performing update().
 
 		Args:
@@ -427,7 +427,7 @@ class SchemaREST(Schema):
 		"""
 		pass
 	
-	def _delete(self, id: int):
+	def _delete(self, id: int, **kwargs):
 		"""Implements the actual action of performing delete().
 
 		Args:
@@ -435,7 +435,7 @@ class SchemaREST(Schema):
 		"""
 		pass
 
-	def _list(self, filter=None):
+	def _list(self, **kwargs):
 		"""Implements the actual action of performing list().
 
 		Args:
