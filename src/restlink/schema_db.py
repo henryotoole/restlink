@@ -51,7 +51,7 @@ class SchemaDB(SchemaREST):
 			raise Exception(f"_db_model_ was not declared for {self.__class__.__name__}")
 		return self.exposer.database_session.get(self.__class__._db_model_, id)
 
-	def _get(self, id: int) -> dict:
+	def _get(self, id: int, **kwargs) -> dict:
 		"""Performs the default get operation. This simply checks the data table for this schema for a record that
 		matches the provided ID and returns serialized data that is appropriate for the frontend in accordance
 		with this schema's filtering and dump-only properties.
@@ -72,7 +72,7 @@ class SchemaDB(SchemaREST):
 			)
 		return self.dump(rec)
 	
-	def _create(self, data: dict) -> dict:
+	def _create(self, data: dict, **kwargs) -> dict:
 		"""Perform the default create operation. This will leverage the @post_load method, which must be defined
 		in the child schema as creating a new instance of anything (but especially a database record) is
 		often unique.
@@ -88,7 +88,7 @@ class SchemaDB(SchemaREST):
 		record = self.load(data)
 		return self.dump(record)
 	
-	def _update(self, id: int, data: dict) -> dict:
+	def _update(self, id: int, data: dict, **kwargs) -> dict:
 		"""Basic REST UPDATE operation. By default, any key/value pair in the provided 'data' dict will be
 		applied to database record instance with setattr(). Validation will be performed in accordance with
 		this schema's configuration beforehand.
@@ -125,7 +125,7 @@ class SchemaDB(SchemaREST):
 
 		return self.dump(rec)
 	
-	def _delete(self, id: int):
+	def _delete(self, id: int, **kwargs):
 		"""Delete a record by its ID. By default, this simply calls db.session.delete() on the record.
 
 		Args:
@@ -142,7 +142,7 @@ class SchemaDB(SchemaREST):
 		self.exposer.database_session.delete(rec)
 		self.exposer.database_session.commit()
 
-	def _list(self, filter=None):
+	def _list(self, filter=None, **kwargs):
 		"""Actually perform get list operation post-validation.
 
 		Args:

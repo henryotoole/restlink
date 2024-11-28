@@ -52,6 +52,13 @@ class SchemaCanal(SchemaDB):
 		# of a certain param in the request.
 		return rest_exposer.current_accessor is not None
 	
+	def _list(self, **kwargs):
+		"""Return 'werk' if custom addition is used.
+		"""
+		if 'custom_addition' in kwargs:
+			return 'werk'
+		return super()._list(**kwargs)
+	
 class SchemaCanalRW(SchemaCanal):
 
 	_rest_path_ = "/canal_rw"
@@ -63,3 +70,8 @@ class SchemaCanalRW(SchemaCanal):
 	def validate_can_write(self, id) -> bool:
 		if rest_exposer.current_accessor is None: return False
 		return rest_exposer.current_accessor['extra'] == '2'
+	
+SchemaCanal._method_map_["GET"]["general"]["params"]["custom_addition"] = {
+	'required': False,
+	'description': "Testing custom additions"
+}
