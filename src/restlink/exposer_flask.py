@@ -101,9 +101,9 @@ class ExposerFlask(Exposer):
 
 			try:
 				params = {}
-				for param_name in request.args.keys():
+				for param_name in request.values.keys():
 
-					param_val = json.loads(urllib.parse.unquote(request.args[param_name]))
+					param_val = json.loads(urllib.parse.unquote(request.values[param_name]))
 					params[param_name] = param_val
 
 
