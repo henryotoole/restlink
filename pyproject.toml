@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "restlink"
+version = "0.1.2"
+description = "Automation layer expose resources via REST API on a backend framework."
+dependencies = [
+	'apispec',
+	'Flask',
+	'marshmallow',
+	'SQLAlchemy',
+]
+authors = [
+	{name = "Josh Reed"}
+]
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+classifiers = [
+	'Operating System :: POSIX :: Linux',
+	'Programming Language :: Python :: 3',
+	'Intended Audience :: Developers'
+]
+
+[project.urls]
+Repository = "https://github.com/henryotoole/restlink"
+
+[project.optional-dependencies]
+test = [
+	'pytest',
+	'flask-sqlalchemy'
+]

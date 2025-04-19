@@ -6,6 +6,8 @@ Test configuration file for all tests for restlink.
 __author__ = "Josh Reed"
 
 # Local code
+from restlink import api
+from tests import test_api
 from tests.fixtures.util import mkdirs
 
 # Other libs
